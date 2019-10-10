@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">SinghNicerShop</string>
+    <string name="instructions_text">You\'re able to buy choose from three products
+                                    and add or remove products using the +/- buttons in the next screen,
+                                    and once you\'re finished click the checkout button.
+                                </string>
+    <string name="menu_button">Proceed to menu</string>
+    <string name="welcome_text">Welcome</string>
+    <string name="plus_item1">+</string>
+    <string name="plus_item2">+</string>
+    <string name="plus_item3">+</string>
+    <string name="minus_item">-</string>
+    <string name="watermelon_title">Watermelon</string>
+    <string name="quantity">Quantity:</string>
+    <string name="product1_description">Perfect for summer days</string>
+    <string name="price_label">Price: $</string>
+    <string name="price1">7.00</string>
+    <string name="price2">4.00</string>
+    <string name="initial_quantity1">0</string>
+    <string name="initial_quantity2">0</string>
+    <string name="initial_quantity3">0</string>
+    <string name="subtotal_label">Subtotal: </string>
+    <string name="subtotal_price1">$0</string>
+    <string name="subtotal_price2">$0</string>
+    <string name="subtotal_price3">$0</string>
+    <string name="coconut_title">Coconut</string>
+    <string name="product2_description">Yes, this is technically a fruit</string>
+    <string name="product3_description">An apple a day keeps the doctor away</string>
+    <string name="price3">0.40</string>
+    <string name="apple_title">Apple</string>
+    <string name="checkout_text">Proceed to checkout</string>
+    <string name="tvq_amount">TVQ amount: </string>
+    <string name="tps_amount">TPS amount: </string>
+    <string name="total_amount">Total before tax: </string>
+    <string name="final_total_amount">Final total: </string>
+    <string name="message">Thank you for using\n the shopping application</string>
+    <string name="total">Total: $0</string>
+</resources>

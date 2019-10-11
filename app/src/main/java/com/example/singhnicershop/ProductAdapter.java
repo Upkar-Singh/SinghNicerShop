@@ -22,7 +22,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private LinkedList<CardViewDesc> mCardViewList;
 
     public ProductAdapter(Context context, LinkedList<CardViewDesc> cardViewList) {
-        this.mInflater = mInflater;
+        this.mInflater = LayoutInflater.from(context);
         this.mCardViewList= cardViewList;
     }
 
@@ -34,15 +34,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        CardViewDesc cv = mCardViewList.get(position);
-        String title = cv.getTitle();
-        String price = cv.getPrice();
-        String description = cv.getDescription();
-        String quantity = cv.getQuantity();
-        int image = cv.getImage();
-
-        holder.image_view.setImageResource(cv.getImage());
+    public void onBindViewHolder(@NonNull ProductAdapter.ProductViewHolder holder, int position) {
+        CardViewDesc cardData = mCardViewList.get(position);
+        holder.title_view.setText(cardData.getTitle());
+        holder.price_view.setText(cardData.getPrice());
+        holder.desc_view.setText(cardData.getDescription());
+        holder.image_view.setImageResource(cardData.getImage());
+        holder.quantity_view.setText(cardData.getQuantity());
     }
 
     @Override
@@ -62,14 +60,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         public ProductViewHolder(@NonNull View itemView, ProductAdapter adapter) {
             super(itemView);
+            this.mAdapter = adapter;
+
             cardView = itemView.findViewById(R.id.cardview_template);
             title_view = itemView.findViewById(R.id.textview_title);
             price_view = itemView.findViewById(R.id.textview_price);
             desc_view = itemView.findViewById(R.id.textview_desc);
             image_view = itemView.findViewById(R.id.imageview_picture);
             quantity_view = itemView.findViewById(R.id.textview_quantity);
-
-            this.mAdapter = adapter;
         }
     }
 }

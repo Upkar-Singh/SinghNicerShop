@@ -11,12 +11,15 @@ import android.view.View;
 
 import com.example.singhnicershop.model.CardViewDesc;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class MenuActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private ProductAdapter mAdapter;
     private LinkedList<CardViewDesc> mCardData = new LinkedList<>();
+    private final String objectName = "object";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +37,9 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        CardViewDesc cvd1 = new CardViewDesc(getResources().getString(R.string.watermelon_title), getResources().getString(R.string.product1_description), getResources().getString(R.string.price1), R.drawable.watermelon, getResources().getString(R.string.initial_quantity1));
-        CardViewDesc cvd2 = new CardViewDesc(getResources().getString(R.string.coconut_title), getResources().getString(R.string.product2_description), getResources().getString(R.string.price2), R.drawable.coconut, getResources().getString(R.string.initial_quantity2));
-        CardViewDesc cvd3 = new CardViewDesc(getResources().getString(R.string.apple_title), getResources().getString(R.string.product3_description), getResources().getString(R.string.price3), R.drawable.apple, getResources().getString(R.string.initial_quantity3));
+        CardViewDesc cvd1 = new CardViewDesc(getResources().getString(R.string.watermelon_title), getResources().getString(R.string.product1_description), getResources().getString(R.string.price1), R.drawable.watermelon, getResources().getString(R.string.initial_quantity1), getResources().getString(R.string.subtotal_price3));
+        CardViewDesc cvd2 = new CardViewDesc(getResources().getString(R.string.coconut_title), getResources().getString(R.string.product2_description), getResources().getString(R.string.price2), R.drawable.coconut, getResources().getString(R.string.initial_quantity2), getResources().getString(R.string.subtotal_price2));
+        CardViewDesc cvd3 = new CardViewDesc(getResources().getString(R.string.apple_title), getResources().getString(R.string.product3_description), getResources().getString(R.string.price3), R.drawable.apple, getResources().getString(R.string.initial_quantity3), getResources().getString(R.string.subtotal_price1));
 
         mCardData.add(cvd1);
         mCardData.add(cvd2);
@@ -50,6 +53,30 @@ public class MenuActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
         // Give the RecyclerView a default layout manager.
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
     }
+
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        ArrayList<String> test = new ArrayList<>();
+
+        for(int i = 0; i < 3; i++) {
+            test.add(mCardData.get(i).getQuantity());
+            test.add(mCardData.get(i).getSubtotal());
+        }
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        ArrayList<String> list = savedInstanceState.getStringArrayList("hi?");
+        for (int i = 0, j = 0; i < 3; i++, j++ ){
+            mCardData.get(i).setQuantity(list.get(j));
+            mCardData.get(i).setSubtotal(list.get(j + 1));
+        }
+    }
+
+
 }
 

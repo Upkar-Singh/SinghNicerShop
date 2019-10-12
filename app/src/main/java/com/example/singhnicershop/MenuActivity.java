@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import com.example.singhnicershop.model.CardViewDesc;
@@ -64,19 +65,22 @@ public class MenuActivity extends AppCompatActivity {
             test.add(mCardData.get(i).getQuantity());
             test.add(mCardData.get(i).getSubtotal());
         }
-
+        Log.d("g", test.get(0));
+        savedInstanceState.putStringArrayList("Array", test);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        ArrayList<String> list = savedInstanceState.getStringArrayList("hi?");
-        for (int i = 0, j = 0; i < 3; i++, j++ ){
-            mCardData.get(i).setQuantity(list.get(j));
-            mCardData.get(i).setSubtotal(list.get(j + 1));
+        ArrayList<String> list = savedInstanceState.getStringArrayList("Array");
+
+        Log.d("Checker", list.get(0));
+        for (int i = 0, j = 0; i < 3; i++, j+= 2){
+                mCardData.get(i).setQuantity(list.get(j));
+        }
+        for (int i = 0, j = 1; i < 3; i++, j+=  2) {
+            mCardData.get(i).setSubtotal(list.get(j));
         }
     }
-
-
 }
 

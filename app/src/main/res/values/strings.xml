@@ -28,7 +28,6 @@
     <string name="product3_description">An apple a day keeps the doctor away</string>
     <string name="price3">0.40</string>
     <string name="apple_title">Apple</string>
-    <string name="checkout_text">Proceed to checkout</string>
     <string name="tvq_amount">TVQ amount: </string>
     <string name="tps_amount">TPS amount: </string>
     <string name="total_amount">Total before tax: </string>

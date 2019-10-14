@@ -19,11 +19,24 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private LayoutInflater mInflater;
     private LinkedList<CardViewDesc> mCardViewList;
 
+    /**
+     * Constructor that creates the adapter
+     *
+     * @param context the cardview that will be inflated/created
+     * @param cardViewList the list containing all cardviews values
+     */
     public ProductAdapter(Context context, LinkedList<CardViewDesc> cardViewList) {
         this.mInflater = LayoutInflater.from(context);
-        this.mCardViewList= cardViewList;
+        this.mCardViewList = cardViewList;
     }
 
+    /**
+     * Creates an instance of the ProductViewHolder containing all values
+     *
+     * @param parent the cardview
+     * @param viewType
+     * @return the holder object containing all values
+     */
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -31,6 +44,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return new ProductViewHolder(mProductView, this);
     }
 
+    /**
+     * Sets all views with their respective values
+     *
+     * @param holder the object containing all values for each object
+     * @param position the index for each object in the list
+     */
     @Override
     public void onBindViewHolder(@NonNull ProductAdapter.ProductViewHolder holder, int position) {
         CardViewDesc cardData = mCardViewList.get(position);
@@ -42,6 +61,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.subtotalView.setText(cardData.getSubtotal());
     }
 
+    /**
+     * returns the list size
+     * @return size
+     */
     @Override
     public int getItemCount() {
         return mCardViewList.size();
@@ -59,6 +82,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         Button addButton;
         Button minusButton;
 
+        /**
+         * constructor that references each view in the cardview
+         * @param itemView
+         * @param adapter
+         */
         public ProductViewHolder(@NonNull View itemView, ProductAdapter adapter) {
             super(itemView);
             this.mAdapter = adapter;
@@ -76,6 +104,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             minusButton.setOnClickListener(this);
         }
 
+        /**
+         * called when the add/minus button is clicked and changes the quantity depending on the
+         * button clicked
+         *
+         * @param v the button being clicked
+         */
         @Override
         public void onClick(View v) {
             int pos = getLayoutPosition();
@@ -97,7 +131,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
             sample.setQuantity("" + quantity);
             sample.setSubtotal(String.format("%.2f", subtotal));
-//            mCardViewList.set(setSubtotal(subtotal));
             mAdapter.notifyDataSetChanged();
         }
     }

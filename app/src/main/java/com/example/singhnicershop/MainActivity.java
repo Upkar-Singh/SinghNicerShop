@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void launchMenuActivity(View view) {
         Intent intent = new Intent(this, MenuActivity.class);
-        Log.d("Call launchMenu", "launchCheckoutActivity");
+        Log.d(LOG_TAG, "launchCheckoutActivity");
         startActivity(intent);
     }
 }

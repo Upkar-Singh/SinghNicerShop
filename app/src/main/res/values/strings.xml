@@ -36,4 +36,5 @@
     <string name="message">Thank you for using\n the shopping application</string>
     <string name="total">Total: $0</string>
     <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_checkout">CheckoutActivity</string>
 </resources>

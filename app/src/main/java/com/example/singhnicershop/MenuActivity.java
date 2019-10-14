@@ -1,16 +1,22 @@
 package com.example.singhnicershop;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.singhnicershop.model.CardViewDesc;
 
@@ -22,8 +28,10 @@ public class MenuActivity extends AppCompatActivity {
     private ProductAdapter mAdapter;
     private LinkedList<CardViewDesc> mCardData = new LinkedList<>();
     private final String objectName = "object";
-
-
+    private final CharSequence[] OPTIONS = new CharSequence[] {"express ($50)", "regular ($10)",
+                                                                "no hurry (no cost)"};
+    public static final String EXTRA_MESSAGE =
+            "com.example.android.singhnicershop.extra.MESSAGE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +48,25 @@ public class MenuActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//              ?  Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                AlertDialog.Builder optionsAlert = new AlertDialog.Builder(MenuActivity.this);
+                optionsAlert.setTitle("Shipping options");
+                optionsAlert.setSingleChoiceItems(OPTIONS, 0, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(MenuActivity.this, OPTIONS[i] + " selected",
+                                Toast.LENGTH_LONG).show();
+                    }
+                }).setPositiveButton("Checkout", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(MenuActivity.this, CheckoutActivity.class);
+                        intent.putExtra("Choice", i);
+                        intent.putExtra(EXTRA_MESSAGE, mCardData);
+                        startActivity(intent);
+                    }
+                });
             }
         });
 
@@ -90,4 +115,5 @@ public class MenuActivity extends AppCompatActivity {
         }
     }
 }
+
 

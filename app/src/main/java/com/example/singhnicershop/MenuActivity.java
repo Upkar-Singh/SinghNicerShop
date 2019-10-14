@@ -129,7 +129,6 @@ public class MenuActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
         // Give the RecyclerView a default layout manager.
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
     /**
@@ -178,11 +177,12 @@ public class MenuActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.content_menu, menu);
+        Log.d(LOG_TAG, "creating menu");
         return true;
     }
 
     /**
-     *  Handles app bar item clicks.
+     * Handles app bar item clicks.
      *
      * @param item Item clicked.
      * @return True if one of the defined items was clicked.
@@ -193,22 +193,21 @@ public class MenuActivity extends AppCompatActivity {
             case R.id.action_size_large:
                 if (priceChanged == false) {
                     for (int i = 0; i < mCardData.size(); i++)
-                        mCardData.get(i).setPrice(String.format("%.2f",Double.parseDouble(mCardData.get(i).getPrice()) * 2));
+                        mCardData.get(i).setPrice(String.format("%.2f", Double.parseDouble(mCardData.get(i).getPrice()) * 2));
                     priceChanged = true;
                 }
                 break;
             case R.id.action_size_normal:
                 if (priceChanged == true) {
                     for (int i = 0; i < mCardData.size(); i++)
-                        mCardData.get(i).setPrice(String.format("%.2f",Double.parseDouble(mCardData.get(i).getPrice()) / 2));
+                        mCardData.get(i).setPrice(String.format("%.2f", Double.parseDouble(mCardData.get(i).getPrice()) / 2));
                     priceChanged = false;
                 }
                 break;
         }
+        Log.d(LOG_TAG, "clicking menu item");
         return super.onOptionsItemSelected(item);
     }
-
-
 }
 
 

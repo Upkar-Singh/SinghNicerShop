@@ -36,4 +36,6 @@
     <string name="total">Total: $0</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="title_activity_checkout">CheckoutActivity</string>
+    <string name="bigger_fruit">Bigger fruit</string>
+    <string name="normal_fruit">Normal fruit</string>
 </resources>

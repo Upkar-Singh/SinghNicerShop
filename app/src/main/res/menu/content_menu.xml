@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.android.singhnicershop.MenuActivity">
+    <item
+        android:id="@+id/action_size_large"
+        android:orderInCategory="100"
+        android:title="@string/bigger_fruit"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_size_normal"
+        android:orderInCategory="100"
+        android:title="@string/normal_fruit"
+        app:showAsAction="never" />
+</menu>

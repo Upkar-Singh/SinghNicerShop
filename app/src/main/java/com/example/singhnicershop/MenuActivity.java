@@ -15,6 +15,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -28,12 +30,13 @@ public class MenuActivity extends AppCompatActivity {
     private ProductAdapter mAdapter;
     private LinkedList<CardViewDesc> mCardData = new LinkedList<>();
     private final String objectName = "object";
-    private final String[] OPTIONS = new String[] {"express ($50)", "regular ($10)",
-                                                                "no hurry (no cost)"};
+    private final String[] OPTIONS = new String[]{"express ($50)", "regular ($10)",
+            "no hurry (no cost)"};
     public static final String EXTRA_MESSAGE =
             "com.example.android.singhnicershop.extra.MESSAGE";
     private String choice = OPTIONS[0];
     private static final String LOG_TAG = MenuActivity.class.getSimpleName();
+    private boolean priceChanged;
 
     /**
      * Creates the activity and allows the user to choose from three options for shipping.
@@ -76,7 +79,7 @@ public class MenuActivity extends AppCompatActivity {
                         for (int k = 0; k < mCardData.size(); k++)
                             total += Integer.parseInt(mCardData.get(k).getQuantity());
 
-                        if(total > 0) {
+                        if (total > 0) {
                             Intent intent = new Intent(MenuActivity.this, CheckoutActivity.class);
                             intent.putExtra("Choice", choice);
                             ArrayList<String> valuesList = new ArrayList<>();
@@ -87,8 +90,7 @@ public class MenuActivity extends AppCompatActivity {
                             }
                             intent.putExtra("CardData", valuesList);
                             startActivity(intent);
-                        }
-                        else
+                        } else
                             Toast.makeText(MenuActivity.this, "Can not checkout " +
                                     "without having at least 1 item in the cart", Toast.LENGTH_SHORT).show();
                         Log.d(LOG_TAG, "checkout clicked");
@@ -139,7 +141,7 @@ public class MenuActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
         ArrayList<String> test = new ArrayList<>();
 
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             test.add(mCardData.get(i).getQuantity());
             test.add(mCardData.get(i).getSubtotal());
         }
@@ -157,14 +159,56 @@ public class MenuActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         ArrayList<String> list = savedInstanceState.getStringArrayList("Array");
 
-        for (int i = 0, j = 0; i < list.size(); i++, j+= 2){
-                mCardData.get(i).setQuantity(list.get(j));
+        for (int i = 0, j = 0; i < list.size(); i++, j += 2) {
+            mCardData.get(i).setQuantity(list.get(j));
         }
-        for (int i = 0, j = 1; i < list.size(); i++, j+=  2) {
+        for (int i = 0, j = 1; i < list.size(); i++, j += 2) {
             mCardData.get(i).setSubtotal(list.get(j));
         }
         Log.d(LOG_TAG, "Restoring values");
     }
+
+    /**
+     * Inflates the menu, and adds items to the action bar if it is present.
+     *
+     * @param menu Menu to inflate.
+     * @return Returns true if the menu inflated.
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.content_menu, menu);
+        return true;
+    }
+
+    /**
+     *  Handles app bar item clicks.
+     *
+     * @param item Item clicked.
+     * @return True if one of the defined items was clicked.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_size_large:
+                if (priceChanged == false) {
+                    for (int i = 0; i < mCardData.size(); i++)
+                        mCardData.get(i).setPrice(String.format("%.2f",Double.parseDouble(mCardData.get(i).getPrice()) * 2));
+                    priceChanged = true;
+                }
+                break;
+            case R.id.action_size_normal:
+                if (priceChanged == true) {
+                    for (int i = 0; i < mCardData.size(); i++)
+                        mCardData.get(i).setPrice(String.format("%.2f",Double.parseDouble(mCardData.get(i).getPrice()) / 2));
+                    priceChanged = false;
+                }
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 }
 
 
